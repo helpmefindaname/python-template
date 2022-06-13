@@ -6,7 +6,10 @@ target-version = ['py310']
 flake8-max-line-length = 120
 flake8-ignore = ["E203", "W503"]  # See https://github.com/PyCQA/pycodestyle/issues/373
 addopts = "--flake8 --mypy --isort -n auto"
-filterwarnings = [ "error"]  # Convert all warnings to errors, imo warnings that are not treated as errors will be ignored by most people.
+filterwarnings = [
+    "error",
+    "SelectableGroups dict interface is deprecated. Use select.:ignore"
+]  # Convert all warnings to errors, imo warnings that are not treated as errors will be ignored by most people.
 # My approach is to throw an error and let the programmar check if the error is intended (then add it to the filterwarnings) or not (then fix it!)
 
 

@@ -27,7 +27,7 @@ jobs:
       - name: Build docker image
         uses: docker/build-push-action@v3
         with:
-            context: .false
+            context: .
             push: false
             build-args: |
                BUILD=test

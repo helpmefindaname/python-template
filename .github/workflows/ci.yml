@@ -45,9 +45,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{steps.docker-build.outputs.imageid}}
-          run: |
-            pip freeze
-            pytest -vv
+          run: pytest -vv
   prep-vars:
     runs-on: ubuntu-latest
     outputs:

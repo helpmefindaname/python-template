@@ -12,6 +12,8 @@ env:
 jobs:
   test-docker:
     runs-on: ubuntu-latest
+    env:
+      tag: "docker-${{ github.sha }}:latest"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -33,7 +35,7 @@ jobs:
                BUILD=test
             cache-from: type=local,src=/tmp/.buildx-cache
             cache-to: type=local,dest=/tmp/.buildx-cache-new
-            tags: "docker-${{ github.sha }}"
+            tags: ${{env.tag}}
       - name: Move cache #  see https://evilmartians.com/chronicles/build-images-on-github-actions-with-docker-layer-caching
         run: |
           rm -rf /tmp/.buildx-cache
@@ -41,7 +43,7 @@ jobs:
       - name: run tests in docker
         uses: addnab/docker-run-action@v3
         with:
-          image: docker-${{ github.sha }}
+          image: ${{env.tag}}
           run: |
             pip freeze
             pytest -vv

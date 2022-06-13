@@ -18,7 +18,7 @@ COPY . .
 
 RUN pip install -e . --no-deps
 
-RUN if [ "BUILD" = "test" ] ; then pip install -r requirements-dev.txt; fi
+RUN if [ $BUILD = "test" ] ; then pip install -r requirements-dev.txt; fi
 
 
 

@@ -1,7 +1,8 @@
 # todo: use multistage build to only use what is required at the end.
 FROM python:3.10.1
 ARG BUILD=prod
-ENV PIP_VERSION=22.1.2 # should be fixed but as high as possible
+ENV PIP_VERSION=22.1.2
+# should be fixed but as high as possible
 
 # RUN apt-get update && apt-get install -y <ubuntu-packages> # install additional packages such as tesseract, imagemagick, g++ etc. IF REQUIRED
 

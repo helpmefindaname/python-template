@@ -36,10 +36,6 @@ jobs:
             cache-from: type=local,src=/tmp/.buildx-cache
             cache-to: type=local,dest=/tmp/.buildx-cache-new
             tags: ${{env.tag}}
-      - name: Move cache #  see https://evilmartians.com/chronicles/build-images-on-github-actions-with-docker-layer-caching
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: run tests in docker
         uses: addnab/docker-run-action@v3
         with:
@@ -47,6 +43,11 @@ jobs:
           run: |
             pip freeze
             pytest -vv
+      - name: Move cache #  see https://evilmartians.com/chronicles/build-images-on-github-actions-with-docker-layer-caching
+        if: always()
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
   prep-vars:
     runs-on: ubuntu-latest
     outputs:

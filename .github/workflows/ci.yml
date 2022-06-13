@@ -60,7 +60,7 @@ jobs:
     needs: test-matrix-prep
     strategy:
       matrix:
-        python-version: ${{fromJson(needs.test-matrix-prep.outputs.matrix}}
+        python-version: ${{fromJson(needs.test-matrix-prep.outputs.matrix)}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

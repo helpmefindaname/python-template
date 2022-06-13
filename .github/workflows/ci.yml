@@ -42,11 +42,7 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: run tests in docker
-        uses: addnab/docker-run-action@v3
-        with:
-          shell: bash
-          image: ${{steps.docker-build.outputs.imageid}}
-          run: 0 pytest -vv
+        run: docker run ${{steps.docker-build.outputs.imageid}} pytest -vv
   prep-vars:
     runs-on: ubuntu-latest
     outputs:

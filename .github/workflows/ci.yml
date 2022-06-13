@@ -46,7 +46,7 @@ jobs:
         with:
           shell: bash
           image: ${{steps.docker-build.outputs.imageid}}
-          run: pytest -vv
+          run: 0 pytest -vv
   prep-vars:
     runs-on: ubuntu-latest
     outputs:

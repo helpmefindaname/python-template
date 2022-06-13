@@ -71,11 +71,11 @@ jobs:
           cache: 'pip'
           cache-dependency-path: '**/requirements*.txt'
       - name: Install dependencies
-        run: pip install -r requirements.txt --update
+        run: pip install --upgrade -r requirements.txt
       - name: Install dev dependencies
-        run: pip install -r requirements-dev.txt --update
+        run: pip install --upgrade -r requirements-dev.txt
       - name: Install package
-        run: pip install -e .
+        run: pip install -e . --no-deps
       - name: show dependencies
         run: pip freeze
       - name: Run tests including flake8 and mypy, etc.

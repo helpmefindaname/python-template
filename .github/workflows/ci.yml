@@ -122,9 +122,17 @@ jobs:
           registry: ${{ secrets.DOCKER_REGISTRY }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: buildx-${{ github.sha }}
+          restore-keys: |
+            buildx-
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
+          cache-from: type=local,src=/tmp/.buildx-cache
           tags: docker-${GITHUB_REF#refs/tags/}

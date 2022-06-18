@@ -129,10 +129,12 @@ jobs:
           key: buildx-${{ github.sha }}
           restore-keys: |
             buildx-
+      - name: Save tag name
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
-          tags: docker-${GITHUB_REF#refs/tags/}
+          tags: docker:${{ env.RELEASE_VERSION }}

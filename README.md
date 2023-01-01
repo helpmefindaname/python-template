@@ -5,7 +5,7 @@ Python template with opinionated setup of my personal preferences.
 ## adoption
 
 * [ ] Create a git repository based on this template
-* [ ] In `pyproject.toml` adjust the `author` `author_email` `name` and `url`
+* [ ] In `pyproject.toml` adjust the `description` `authors` `name` and `repository`
 * [ ] Rename the folder `python_template` to the project name
 * [ ] depending on the publishing set `is_package` and `publish_docker` accordingly.
 * [ ] if you use `publish_docker` set secrets for `DOCKER_REGISTRY` `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`. You may want to also adjust the name of the tag that is used for publishing.

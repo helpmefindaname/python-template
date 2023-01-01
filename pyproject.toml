@@ -6,6 +6,7 @@ authors = ["Benedikt Fuchs <benedikt.fuchs.staw@hotmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{ include = "python_template" }]
+repository = "https://github.com/helpmefindaname/python-template"
 
 [tool.poetry.scripts]
 python_template = "python_template.cli:main"

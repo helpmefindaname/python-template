@@ -72,7 +72,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: setup python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'poetry'
@@ -93,7 +93,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: setup python ${{ env.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ env.python-version }}
           cache: 'poetry'

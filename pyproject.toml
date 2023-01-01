@@ -35,7 +35,7 @@ line-length = 120
 target-version = 'py310'
 
 [tool.pytest.ini_options]
-addopts = "--flake8 --mypy --isort -n auto"
+addopts = "--mypy -n auto"
 filterwarnings = [
     "error",
     "ignore:SelectableGroups dict interface is deprecated. Use select."

@@ -5,7 +5,7 @@ description = "Python template with opinionated setup of my personal preferences
 authors = ["Benedikt Fuchs <benedikt.fuchs.staw@hotmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "python_template"}]
+packages = [{ include = "python_template" }]
 
 [tool.poetry.scripts]
 python_template = "python_template.cli:main"
@@ -23,6 +23,11 @@ pytest-github-actions-annotate-failures = "^0.1.8"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
 
 
 [tool.ruff]

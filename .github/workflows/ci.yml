@@ -49,7 +49,7 @@ jobs:
           shell: bash
           image: ${{steps.docker-build.outputs.imageid}}
           run: |
-            ruff .
+            ruff . && black --check .
             pytest -vv
   prep-vars:
     runs-on: ubuntu-latest

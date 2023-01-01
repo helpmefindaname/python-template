@@ -17,7 +17,7 @@ jobs:
       tag: "docker-${{ github.sha }}:latest"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Cache Docker layers
@@ -58,7 +58,7 @@ jobs:
       publish_docker: ${{ steps.set-vars.outputs.publish_docker }}
     steps:
       - name: Check out code into the Go module directory
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - id: set-vars
         run: |
           echo "matrix={\"python-version\":${{ env.is_package && '[ \"3.7\", \"3.8\", \"3.9\", \"3.10\" ]' || '[ \"3.10\" ]' }} }" >> $GITHUB_OUTPUT
@@ -70,7 +70,9 @@ jobs:
       matrix: ${{fromJson(needs.prep-vars.outputs.matrix)}}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - name: setup python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -91,7 +93,9 @@ jobs:
       python-version: 3.10
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - name: setup python ${{ env.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -115,7 +119,7 @@ jobs:
     if: needs.prep-vars.outputs.publish_docker && github.ref_type == 'tag'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Login to DockerHub

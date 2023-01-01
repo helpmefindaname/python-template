@@ -1,24 +1,28 @@
 # todo: use multistage build to only use what is required at the end.
 FROM python:3.10.1
 ARG BUILD=prod
-ENV PIP_VERSION=22.1.2
+ARG BUILD_VERSION=0.1.0
+ENV POETRY_VERSION=1.3.1
 # should be fixed but as high as possible
 
+ENV POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_HOME="/opt/poetry"
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
+
 # RUN apt-get update && apt-get install -y <ubuntu-packages> # install additional packages such as tesseract, imagemagick, g++ etc. IF REQUIRED
-
-RUN pip install pip==$PIP_VERSION
-
 WORKDIR /app
 CMD ["python_template"] # TODO: change to run commando
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN curl -sSL https://install.python-poetry.org | python -
 
 COPY . .
 
-RUN pip install -e . --no-deps
+RUN poetry install --without dev
+RUN poetry version $BUILD_VERSION
 
-RUN if [ $BUILD = "test" ] ; then pip install -r requirements-dev.txt; fi
+RUN if [ $BUILD = "test" ] ; then poetry install; fi
 
 
 

@@ -5,7 +5,7 @@ Python template with opinionated setup of my personal preferences.
 ## adoption
 
 * [ ] Create a git repository based on this template
-* [ ] In `setup.py` adjust the `author` `author_email` `name` and `url`
+* [ ] In `pyproject.toml` adjust the `author` `author_email` `name` and `url`
 * [ ] Rename the folder `python_template` to the project name
 * [ ] depending on the publishing set `is_package` and `publish_docker` accordingly.
 * [ ] if you use `publish_docker` set secrets for `DOCKER_REGISTRY` `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`. You may want to also adjust the name of the tag that is used for publishing.
@@ -19,13 +19,9 @@ Python template with opinionated setup of my personal preferences.
 ## Installation
 
 To install this project, first clone it from git.
-Then install it via pip: 
+Then install it via [poetry](https://github.com/python-poetry/poetry): 
 ```
-pip install .
-```
-If you want to work on this project, create a conda environment or a virtual environment and install it in the editable mode and add the `dev` extra:
-```
-pip install -e .[dev]
+poetry install
 ```
 
 ## Features
@@ -86,21 +82,13 @@ usage of diverse plugins for pytest, such that mypy, flake8, black checks, isort
 ### deployment via tags.
 
 To deploy a branch (depending on you CI-CD settings, this creates a docker image or publishes a package),
-it is enough to create a tag within the `v#.#.#` schema and use semantic versioning.
-There is no need to edit the `setup.py` or do any adjustment to the code.
+it is enough to create a tag within the `#.#.#` schema and use semantic versioning.
+There is no need to edit the `pyproject.toml` or do any adjustment to the code.
 
 
 ## features that I refrained from adding.
 
 There is a list of possible additions, that I do not like and therefore didn't add.
-
-
-### poetry
-
-While [poetry](https://python-poetry.org/) is a easy way of managing dependencies, I refrain from it, as I made bad experiences with venv, which is used implicitely.
-When I started with Python and DL, I had to use anaconda to install pytorch on windows. In general there are often libraries that are easier to install via anaconda than with pip.
-So I prefer a setup where you can freely create your environment on your own.
-For this having requirements.txt is crucial, as it allows me to install some dependencies with a different usage.
 
 ### pre-commit hooks for formatting
 
@@ -118,18 +106,6 @@ I have seen quite some anti-patterns with pre-commit hooks such as
 
 ## features on my todo list
 
-### multi stage docker build
-nothing to add here
-
-### requirements-freeze
-I used to use a setup that involves a second docker file together with a docker-compose.yaml that runs containers that simply
-* installs `requirements.txt`
-* freezes it out to a `requirements-frozen.txt`
-the `requirements-frozen.txt` will then be used within the original docker file.
-
-The idea of it is simple:
-If you run a deployment via docker images, you want to have the specific dependencies that were used for testing them.
-You don't want to have any other dependencies that might come due to using a different OS or having something different in your setup.
-Hence the only way to ensure the exactly same setup, is by using a dockerfile with the exact setup.
-The CI-CD system will test using the frozen dependencies and therefore ensures, that the developers won't just get it work on their machine.
-However they are still able to install whatever they want to make it work on their machine too.
+### multi-stage docker build
+Currently, the dockerfile has a single stage, meaning that build packages such as poetry or g++ - if a c++ dependency needs to be build - will be shipped with the docker container, making it a bit larger.
+With multi-stage docker builds, this can be reduced to a docker file that only includes the final dependencies, as the installation happens in another stage.

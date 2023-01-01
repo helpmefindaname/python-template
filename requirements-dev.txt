@@ -1,9 +1,0 @@
-pytest
-pytest-mypy
-pytest-flake8
-flake8
-pytest-isort
-flake8-black
-black
-isort
-pytest-xdist

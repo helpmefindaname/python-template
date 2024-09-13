@@ -1,8 +1,8 @@
 # todo: use multistage build to only use what is required at the end.
-FROM python:3.10.1
+FROM python:3.12
 ARG BUILD=prod
 ARG BUILD_VERSION=0.1.0
-ENV POETRY_VERSION=1.3.1
+ENV POETRY_VERSION=1.8.3
 # should be fixed but as high as possible
 
 ENV POETRY_VIRTUALENVS_CREATE=false \
@@ -13,7 +13,7 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # RUN apt-get update && apt-get install -y <ubuntu-packages> # install additional packages such as tesseract, imagemagick, g++ etc. IF REQUIRED
 WORKDIR /app
-CMD ["python_template"] # TODO: change to run commando
+CMD ["python_template"] # TODO: change to run command
 
 RUN curl -sSL https://install.python-poetry.org | python -
 

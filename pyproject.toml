@@ -39,7 +39,7 @@ line-length = 120
 target-version = 'py39'
 
 [tool.pytest.ini_options]
-addopts = "--mypy -n auto"
+addopts = "--mypy --black --ruff -n auto"
 filterwarnings = [
     "error",
     "ignore:SelectableGroups dict interface is deprecated. Use select."

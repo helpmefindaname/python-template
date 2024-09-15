@@ -31,12 +31,12 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
-target-version = ['py312']
+target-version = ['py39']
 
 
 [tool.ruff]
 line-length = 120
-target-version = 'py312'
+target-version = 'py39'
 
 [tool.pytest.ini_options]
 addopts = "--mypy -n auto"

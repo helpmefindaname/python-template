@@ -2,6 +2,8 @@ name: 'Run tests for ci cd'
 on:
   push:
     branches: [ main ]
+    tags:
+      - "*"
   pull_request:
     branches: [ main ]
 
@@ -84,10 +86,10 @@ jobs:
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-latest
-    needs: [test, test-docker]
+    needs: [test]
     if: github.ref_type == 'tag'
     env:
-      python-version: 3.12
+      python-version: "3.12"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -107,8 +109,7 @@ jobs:
       - name: Publish
         if: ${{env.is_package}}
         run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-          poetry publish --build
+          poetry publish --build -u __token__ -p ${{ secrets.PYPI_TOKEN }} -vv
   publish-docker:
     name: Publish docker file and push it to a registry
     runs-on: ubuntu-latest
